@@ -13,29 +13,33 @@ with open(csvpath) as csvfile:
     totalv = 0
     rowcount = 0
     maxm = 0
+    totalchange = 0
     #Define list
+    Monthlist = []
     Mylist = []
-    Mynlist = []
-    Changepermonthlist = []
+    list1 = []
+    test = []
     #Skip headers
     next(csvreader)
     #Starting the loop through the rows
     for row in csvreader:
         #Total months
-        rowcount += 1
+        months = row[0]
+        Monthlist += [months]
+        rowcount = len(Monthlist)
         #Total P/L
         totalv += int(row[1])
+        #Change
+
+        list1 += [totalv]
+        for i in list1:
+            value1 = i
+            value2 = i+1
+            change = value2 - value1
+            test += [change]
+            #totalchange += change
         #Set the column values as integer
         rowv = int(row[1])
-        #Define lists
-        Mynlist += [rowv]
-        Mynlist.pop(0)
-        #Change in Profit/Loss
-        zip_object = zip(Mylist, Mynlist)
-        changelist = []
-        for Mylist, Mynlist in zip_object:
-            changelist.append(Mynlist-Mylist)
-        change = sum(changelist)
         #Add values in Profit/Loss to the list
         Mylist += [rowv]
         #Max value in the list
@@ -58,7 +62,8 @@ with open(csvpath) as csvfile:
     print(f'Total: ${"{:,}".format(totalv)}')
     print(f'Greatest Increase in Profits: {maxm} (${maxvl})')
     print(f'Greatest Decrease in Profits: {minm} (${minvl})')
-    print(change)
+    print(test)
+
 
 f.write("Financial Analysis")
 f.write('\n')
