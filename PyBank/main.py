@@ -18,7 +18,6 @@ with open(csvpath) as csvfile:
     Monthlist = []
     Mylist = []
     list1 = []
-    test = []
     #Skip headers
     next(csvreader)
     #Starting the loop through the rows
@@ -30,14 +29,8 @@ with open(csvpath) as csvfile:
         #Total P/L
         totalv += int(row[1])
         #Change
-
-        list1 += [totalv]
-        for i in list1:
-            value1 = i
-            value2 = i+1
-            change = value2 - value1
-            test += [change]
-            #totalchange += change
+        fchange = totalv - 1088983
+        totalchange = (totalv - fchange) / rowcount
         #Set the column values as integer
         rowv = int(row[1])
         #Add values in Profit/Loss to the list
@@ -55,14 +48,15 @@ with open(csvpath) as csvfile:
         #Format values
         maxvl = '{:,}'.format(maxv)
         minvl = '{:,}'.format(minv)
+    totalchangev = '{:,.2f}'.format(totalchange)
 
     print("Financial Analysis")
     print("---------------------------")
     print(f'Total Months: {int(rowcount)}')
     print(f'Total: ${"{:,}".format(totalv)}')
+    print(f'Average change: ${totalchangev}')
     print(f'Greatest Increase in Profits: {maxm} (${maxvl})')
     print(f'Greatest Decrease in Profits: {minm} (${minvl})')
-    print(test)
 
 
 f.write("Financial Analysis")
@@ -71,9 +65,10 @@ f.write("---------------------------")
 f.write('\n')
 f.write(f'Total Months: {int(rowcount)}')
 f.write('\n')
+f.write(f'Average change: ${totalchangev}')
+f.write('\n')
 f.write(f'Total: ${"{:,}".format(totalv)}')
 f.write('\n')
 f.write(f'Greatest Increase in Profits: {maxm} (${maxvl})')
 f.write('\n')
 f.write(f'Greatest Decrease in Profits: {minm} (${minvl})')
-
