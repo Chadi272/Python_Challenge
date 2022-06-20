@@ -30,7 +30,7 @@ with open(csvpath) as csvfile:
         totalv += int(row[1])
         #Change
         fchange = totalv - 1088983
-        totalchange = (totalv - fchange) / rowcount
+        totalchange = (fchange - totalv) / rowcount
         #Set the column values as integer
         rowv = int(row[1])
         #Add values in Profit/Loss to the list
